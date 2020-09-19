@@ -28,4 +28,4 @@ export function disconnect() {
 }
 
 export function sendMessage(message) {
-    stompClient.send("/app/changeMessage", {}, JSON.stringify(message))
+    stompClient.send("/app/changeMessage", {}, JSON.stringify(message))}
