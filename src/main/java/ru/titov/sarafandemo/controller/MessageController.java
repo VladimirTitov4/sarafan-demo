@@ -3,6 +3,8 @@ package ru.titov.sarafandemo.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import ru.titov.sarafandemo.domain.Message;
 import ru.titov.sarafandemo.domain.Views;
@@ -48,5 +50,11 @@ public class MessageController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Message message) {
         messageRepo.delete(message);
+    }
+
+    @MessageMapping("/changeMessage")
+    @SendTo("/topic/activity")
+    public Message change(Message message) {
+        return messageRepo.save(message);
     }
 }
